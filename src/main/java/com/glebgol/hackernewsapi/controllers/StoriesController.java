@@ -28,7 +28,7 @@ public class StoriesController {
     public ResponseEntity<Story> getStory(@PathVariable int id) {
         Optional<Story> optionalStory = storyService.getStoryById(id);
         if (optionalStory.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(optionalStory.get());
     }
