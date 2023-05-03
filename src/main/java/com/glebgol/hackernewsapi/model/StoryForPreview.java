@@ -5,18 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Story {
+public class StoryForPreview {
     private int id;
-    private String authorName;
-    private int score;
-    private LocalDateTime date;
-    private String storyUrl;
     private String title;
-    private int commentsCount;
-    private List<Comment> comments;
+    private int score;
+    private String authorName;
+    private LocalDateTime date;
 }
