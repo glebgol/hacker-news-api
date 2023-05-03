@@ -1,4 +1,4 @@
-package com.example.hackernewsapi;
+package com.glebgol.hackernewsapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

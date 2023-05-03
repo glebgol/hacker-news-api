@@ -1,4 +1,4 @@
-package com.example.hackernewsapi;
+package com.glebgol.hackernewsapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
