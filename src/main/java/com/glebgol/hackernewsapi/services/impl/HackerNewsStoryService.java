@@ -8,6 +8,7 @@ import com.glebgol.hackernewsapi.services.StoryService;
 import com.glebgol.hackernewsapi.utils.StoryMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,31 +24,33 @@ public class HackerNewsStoryService implements StoryService {
     private final StoryIdsService idsService;
     private final StoryMapper storyMapper;
 
+    @Value("${story.for.preview.url}")
+    private String storyForPreviewUrl;
+
+    @Value("${story.url}")
+    private String storyUrl;
+
     @Override
-    public List<StoryForPreview> getNewStories(int storiesCount) {
-        List<StoryForPreview> newStories = new ArrayList<>(storiesCount);
-        List<Integer> ids = idsService.getNewStoriesIds(storiesCount);
+    public List<StoryForPreview> getRecentStories(int storiesCount) {
+        List<StoryForPreview> recentStories = new ArrayList<>(storiesCount);
+        List<Integer> ids = idsService.getRecentStoriesIds(storiesCount);
 
         ids.forEach((id) -> {
             Optional<StoryForPreview> optionalStory = getStoryForPreviewById(id);
-            optionalStory.ifPresent(newStories::add);
+            optionalStory.ifPresent(recentStories::add);
         });
-        return newStories;
+        return recentStories;
     }
 
     @Override
     public Optional<StoryForPreview> getStoryForPreviewById(int id) {
-        StoryDTO storyDTO = restTemplate.getForEntity("https://hacker-news.firebaseio.com/v0/item/" + id + ".json",
-                StoryDTO.class).getBody();
-        log.info(storyDTO);
+        StoryDTO storyDTO = restTemplate.getForEntity(storyForPreviewUrl, StoryDTO.class, id).getBody();
         return Optional.ofNullable(storyMapper.mapToPreview(storyDTO));
     }
 
     @Override
     public Optional<Story> getStoryById(int id) {
-        StoryDTO storyDTO = restTemplate.getForEntity("https://hacker-news.firebaseio.com/v0/item/" + id + ".json",
-                StoryDTO.class).getBody();
-        log.info(storyDTO);
+        StoryDTO storyDTO = restTemplate.getForEntity(storyUrl, StoryDTO.class, id).getBody();
         return Optional.ofNullable(storyMapper.map(storyDTO));
     }
 }
