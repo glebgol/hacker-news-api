@@ -51,6 +51,9 @@ public class HackerNewsStoryService implements StoryService {
     @Override
     public Optional<Story> getStoryById(int id) {
         StoryDTO storyDTO = restTemplate.getForEntity(storyUrl, StoryDTO.class, id).getBody();
+        if (storyDTO == null) {
+            return Optional.empty();
+        }
         return Optional.ofNullable(storyMapper.map(storyDTO));
     }
 }
