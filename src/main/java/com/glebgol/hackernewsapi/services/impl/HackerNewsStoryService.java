@@ -5,7 +5,7 @@ import com.glebgol.hackernewsapi.model.Story;
 import com.glebgol.hackernewsapi.model.StoryForPreview;
 import com.glebgol.hackernewsapi.services.StoryIdsService;
 import com.glebgol.hackernewsapi.services.StoryService;
-import com.glebgol.hackernewsapi.utils.StoryMapper;
+import com.glebgol.hackernewsapi.services.StoryMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;

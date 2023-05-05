@@ -1,9 +1,9 @@
-package com.glebgol.hackernewsapi.utils.impl;
+package com.glebgol.hackernewsapi.services.impl;
 
 import com.glebgol.hackernewsapi.dto.StoryDTO;
 import com.glebgol.hackernewsapi.model.Story;
 import com.glebgol.hackernewsapi.model.StoryForPreview;
-import com.glebgol.hackernewsapi.utils.StoryMapper;
+import com.glebgol.hackernewsapi.services.StoryMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -18,8 +18,7 @@ public class StoryMapperImpl implements StoryMapper {
         int id = storyDTO.getId();
         String authorName = storyDTO.getBy();
         int score = storyDTO.getScore();
-        LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(storyDTO.getTime()),
-                TimeZone.getDefault().toZoneId());
+        LocalDateTime date = getTime(storyDTO);
         String storyUrl = storyDTO.getUrl();
         String title = storyDTO.getTitle();
         List<Integer> commentIds = storyDTO.getKids();
@@ -30,6 +29,11 @@ public class StoryMapperImpl implements StoryMapper {
         // TODO: fetch comments
 
         return new Story(id, authorName, score, date, storyUrl, title, commentsCount, null);
+    }
+
+    private LocalDateTime getTime(StoryDTO storyDTO) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(storyDTO.getTime()),
+                TimeZone.getDefault().toZoneId());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.glebgol.hackernewsapi.utils;
+package com.glebgol.hackernewsapi.services;
 
 import com.glebgol.hackernewsapi.dto.StoryDTO;
 import com.glebgol.hackernewsapi.model.Story;
