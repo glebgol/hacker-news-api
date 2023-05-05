@@ -4,14 +4,14 @@ import com.glebgol.hackernewsapi.dto.StoryDTO;
 import com.glebgol.hackernewsapi.model.Story;
 import com.glebgol.hackernewsapi.model.StoryForPreview;
 import com.glebgol.hackernewsapi.services.StoryMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TimeZone;
 
-@Component
+@Service
 public class StoryMapperImpl implements StoryMapper {
     @Override
     public Story map(StoryDTO storyDTO) {
@@ -41,8 +41,7 @@ public class StoryMapperImpl implements StoryMapper {
         int id = storyDTO.getId();
         String authorName = storyDTO.getBy();
         int score = storyDTO.getScore();
-        LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(storyDTO.getTime()),
-                TimeZone.getDefault().toZoneId());
+        LocalDateTime date = getTime(storyDTO);
         String title = storyDTO.getTitle();
 
         return new StoryForPreview(id, title, score, authorName, date);

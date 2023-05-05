@@ -54,6 +54,6 @@ public class HackerNewsStoryService implements StoryService {
         if (storyDTO == null) {
             return Optional.empty();
         }
-        return Optional.ofNullable(storyMapper.map(storyDTO));
+        return Optional.of(storyMapper.map(storyDTO));
     }
 }
